@@ -12,9 +12,11 @@ import java.time.Instant;
 public class Controller {
 
     private final EventRepository eventRepository;
+    private final EventService eventService;
 
-    public Controller(EventRepository eventRepository){
+    public Controller(EventRepository eventRepository,EventService eventService){
         this.eventRepository = eventRepository;
+        this.eventService=eventService;
     }
 
     @PostMapping("/events")

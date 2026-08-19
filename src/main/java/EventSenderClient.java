@@ -56,6 +56,7 @@ public class EventSenderClient {
                             .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
                             .build();
 
+
                     HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                     System.out.println("HTTP Status Code: " + response.statusCode());
                     System.out.println("Database Response Body: " + response.body());
