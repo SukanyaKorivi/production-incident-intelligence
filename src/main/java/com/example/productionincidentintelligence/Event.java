@@ -52,4 +52,7 @@ public class Event {
         this.message=message;
     }
     public Long getIncidentId(){return incidentId;}
+    public void setIncidentId(Long incidentId){
+        this.incidentId=incidentId;
+    }
 }

@@ -11,11 +11,16 @@ public interface EventRepository
       extends JpaRepository<Event,Long> {
     public interface ServiceErrorCount {
         String getServiceName();  // Maps automatically to 'serviceName'
-        Long getErrorCount();     // Maps automatically to the alias we will set in the query
+        Long getErrorCount();
+        String getMessage();// Maps automatically to the alias we will set in the query
     }
 
 
 
-@Query(value="SELECT service_Name AS serviceName,COUNT(log_Level) AS errorCount FROM event WHERE log_Level= 'ERROR' AND incident_Id IS NULL AND timestamp >= :cutoffTime Group By service_Name",nativeQuery=true)
+@Query(value="SELECT service_Name AS serviceName,message,COUNT(log_Level) AS errorCount FROM event WHERE log_Level= 'ERROR' AND incident_Id IS NULL AND timestamp >= :cutoffTime Group By service_Name,message",nativeQuery=true)
 List<ServiceErrorCount> findErrorCountGroupByService(@Param("cutoffTime") Instant cutoffTime);
+
+    @Query(value = "SELECT * FROM event WHERE log_level = 'ERROR' AND incident_id IS NULL AND timestamp >= :cutoffTime", nativeQuery = true)
+    List<Event> findUncorrelatedErrorsAfter(@Param("cutoffTime") Instant cutoffTime);
+
 }
