@@ -224,10 +224,10 @@ continuously.
 
 ```bash
 # List all incidents
-curl http://localhost:8080/incidents
+curl http://localhost:PORT/incidents
 
 # Get one incident with its full evidence trail
-curl http://localhost:8080/incidents/1
+curl http://localhost:PORT/incidents/1
 ```
 
 ## Sample Output
