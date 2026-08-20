@@ -1,9 +1,12 @@
 package com.example.productionincidentintelligence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.Instant;
 import java.util.List;
 
@@ -26,5 +29,9 @@ List<Event> findUncorrelatedErrorsAfter(@Param("cutoffTime") Instant cutoffTime)
 @Query(value="SELECT * FROM event WHERE incident_id = :newIncidentId",nativeQuery = true)
 List<Event> findCorrelatedErrorByIncidentId(@Param("newIncidentId") Long newIncidentId);
 
+@Modifying
+@Transactional
+@Query(value="DELETE FROM event WHERE incident_id IS NULL AND timestamp < :cutoffTime",nativeQuery = true)
+int deleteByTimestampBeforeAndIncidentIdNull(@Param("cutoffTime") Instant cutoffTime);
 
 }
