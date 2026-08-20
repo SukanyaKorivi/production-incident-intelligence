@@ -55,7 +55,7 @@ public class EventService {
 
     }
     @Scheduled(fixedRate = 500000)
-    public void deletelogs(){
+    public void cleanUpLogs(){
         Instant cutoffTime=Instant.now().minusSeconds(60);
         int logCount=eventRepository.deleteByTimestampBeforeAndIncidentIdNull(cutoffTime);
         System.out.println("CLEAN UP: Deleted "+logCount+" stale events");
