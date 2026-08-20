@@ -28,6 +28,7 @@ public class EventService {
         List<EventRepository.ServiceErrorCount> errors = eventRepository.findErrorCountGroupByService(threeSecondsAgo);
         List<Event> eventList=eventRepository.findUncorrelatedErrorsAfter(threeSecondsAgo);
 
+
         for(EventRepository.ServiceErrorCount error:errors){
             String name=error.getServiceName();
             Long count=error.getErrorCount();
@@ -43,6 +44,7 @@ public class EventService {
                 for(Event event:eventList){
                     event.setIncidentId(savedIncident.getId());
                 }
+                eventRepository.saveAllAndFlush(eventList);
                 }
             else{
                 System.out.println("warning suppressed due to Low severity in "+name);
@@ -51,4 +53,5 @@ public class EventService {
         }
 
     }
+
 }

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 
 @RestController
-public class Controller {
+public class EventController {
 
     private final EventRepository eventRepository;
     private final EventService eventService;
 
-    public Controller(EventRepository eventRepository,EventService eventService){
+    public EventController(EventRepository eventRepository, EventService eventService){
         this.eventRepository = eventRepository;
         this.eventService=eventService;
     }
