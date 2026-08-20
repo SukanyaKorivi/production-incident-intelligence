@@ -1,4 +1,9 @@
-GET http://localhost:8080/incidents/381
+POST http://localhost:8080/events
+    "Content-Type: application/json"
+
+{"serviceName":"payment-service",
+"logLevel":"ERROR",
+"message":"DATABASE CONNECTION FAILURE: Pool exhausted"}
 
 
 
